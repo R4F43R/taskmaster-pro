@@ -11,13 +11,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
+    <!-- Contenedor de Autenticación -->
+    <div id="auth-container" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-tabs">
+                <button class="active" id="login-tab">Iniciar Sesión</button>
+                <button id="register-tab">Registrarse</button>
+            </div>
+            
+            <form id="login-form" class="auth-form">
+                <input type="email" id="login-email" placeholder="Correo electrónico" required>
+                <input type="password" id="login-password" placeholder="Contraseña" required>
+                <button type="submit">Ingresar</button>
+            </form>
+            
+            <form id="register-form" class="auth-form" style="display:none">
+                <input type="text" id="register-name" placeholder="Nombre completo" required>
+                <input type="email" id="register-email" placeholder="Correo electrónico" required>
+                <input type="password" id="register-password" placeholder="Contraseña" minlength="6" required>
+                <button type="submit">Crear cuenta</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal de la App (oculto inicialmente) -->
+    <div id="app-container" class="container" style="display:none">
         <header>
             <h1><i class="fas fa-tasks"></i> TaskMaster Pro</h1>
-            <div class="theme-switcher">
-                <button id="themeToggle">
-                    <i class="fas fa-moon"></i> Modo Oscuro
-                </button>
+            <div class="user-menu">
+                <span id="user-name"></span>
+                <button id="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
             </div>
         </header>
         

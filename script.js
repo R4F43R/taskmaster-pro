@@ -26,6 +26,163 @@ const DOM = {
     productivityChart: document.getElementById('productivityChart')
 };
 
+
+// ===== SISTEMA DE AUTENTICACIÓN =====
+// 1. Elementos del DOM
+const authContainer = document.getElementById('auth-container');
+const appContainer = document.getElementById('app-container');
+const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
+const loginTab = document.getElementById('login-tab');
+const registerTab = document.getElementById('register-tab');
+const logoutBtn = document.getElementById('logout-btn');
+const userNameSpan = document.getElementById('user-name');
+const snackbar = document.getElementById('snackbar');
+
+// 2. Mostrar notificación
+function showSnackbar(message, isError = false) {
+    snackbar.textContent = message;
+    snackbar.className = 'snackbar show';
+    if (isError) snackbar.style.backgroundColor = '#f72585';
+    
+    setTimeout(() => {
+        snackbar.className = snackbar.className.replace('show', '');
+        snackbar.style.backgroundColor = '#333';
+    }, 3000);
+}
+
+// 3. Base de datos de usuarios (simulada)
+const userDB = {
+    users: JSON.parse(localStorage.getItem('tm-users')) || [],
+    
+    save: function() {
+        localStorage.setItem('tm-users', JSON.stringify(this.users));
+    },
+    
+    findByEmail: function(email) {
+        return this.users.find(user => user.email === email);
+    },
+    
+    create: function(user) {
+        const newUser = {
+            id: Date.now().toString(),
+            ...user,
+            createdAt: new Date().toISOString()
+        };
+        this.users.push(newUser);
+        this.save();
+        return newUser;
+    }
+};
+
+// 4. Manejo de sesión
+const auth = {
+    currentUser: null,
+    
+    login: function(user) {
+        this.currentUser = user;
+        localStorage.setItem('tm-auth', JSON.stringify({
+            userId: user.id,
+            loggedIn: true
+        }));
+        showApp();
+    },
+    
+    logout: function() {
+        this.currentUser = null;
+        localStorage.removeItem('tm-auth');
+        showAuth();
+    },
+    
+    check: function() {
+        const authData = JSON.parse(localStorage.getItem('tm-auth'));
+        if (authData && authData.loggedIn) {
+            const user = userDB.users.find(u => u.id === authData.userId);
+            if (user) {
+                this.currentUser = user;
+                showApp();
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+// 5. Mostrar vistas
+function showApp() {
+    authContainer.style.display = 'none';
+    appContainer.style.display = 'block';
+    userNameSpan.textContent = auth.currentUser.name;
+    // Aquí puedes inicializar tu aplicación
+}
+
+function showAuth() {
+    authContainer.style.display = 'flex';
+    appContainer.style.display = 'none';
+    loginForm.reset();
+    registerForm.reset();
+}
+
+// 6. Event Listeners
+loginTab.addEventListener('click', () => {
+    loginTab.classList.add('active');
+    registerTab.classList.remove('active');
+    loginForm.style.display = 'flex';
+    registerForm.style.display = 'none';
+});
+
+registerTab.addEventListener('click', () => {
+    registerTab.classList.add('active');
+    loginTab.classList.remove('active');
+    registerForm.style.display = 'flex';
+    loginForm.style.display = 'none';
+});
+
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    
+    const user = userDB.findByEmail(email);
+    if (!user || user.password !== password) {
+        showSnackbar('Credenciales incorrectas', true);
+        return;
+    }
+    
+    auth.login(user);
+    showSnackbar(`Bienvenido ${user.name}`);
+});
+
+registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    
+    if (userDB.findByEmail(email)) {
+        showSnackbar('Este correo ya está registrado', true);
+        return;
+    }
+    
+    const user = userDB.create({ name, email, password });
+    auth.login(user);
+    showSnackbar(`Cuenta creada para ${user.name}`);
+});
+
+logoutBtn.addEventListener('click', () => {
+    auth.logout();
+    showSnackbar('Sesión cerrada correctamente');
+});
+
+// 7. Inicialización
+if (!auth.check()) {
+    showAuth();
+}
+
+// ===== TU CÓDIGO EXISTENTE =====
+// Aquí debajo coloca todo el código que ya tenías en tu script.js
+// Se ejecutará solo cuando el usuario esté autenticado
+
 // Variables de estado
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 let currentFilter = 'all';

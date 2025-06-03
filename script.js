@@ -1,32 +1,3 @@
-// Constantes y elementos del DOM
-const DOM = {
-    taskInput: document.getElementById('taskInput'),
-    categorySelect: document.getElementById('categorySelect'),
-    prioritySelect: document.getElementById('prioritySelect'),
-    addButton: document.getElementById('addButton'),
-    taskList: document.getElementById('taskList'),
-    totalCount: document.getElementById('totalCount'),
-    completedCount: document.getElementById('completedCount'),
-    pendingCount: document.getElementById('pendingCount'),
-    highPriorityCount: document.getElementById('highPriorityCount'),
-    filterButtons: document.querySelectorAll('.filter-btn'),
-    clearBtn: document.getElementById('clearBtn'),
-    searchInput: document.getElementById('searchInput'),
-    clearSearch: document.getElementById('clearSearch'),
-    sortSelect: document.getElementById('sortSelect'),
-    themeToggle: document.getElementById('themeToggle'),
-    exportBtn: document.getElementById('exportBtn'),
-    importBtn: document.getElementById('importBtn'),
-    feedbackBtn: document.getElementById('feedbackBtn'),
-    feedbackModal: document.getElementById('feedbackModal'),
-    closeModal: document.querySelector('.close-modal'),
-    feedbackForm: document.getElementById('feedbackForm'),
-    snackbar: document.getElementById('snackbar'),
-    offlineStatus: document.getElementById('offlineStatus'),
-    productivityChart: document.getElementById('productivityChart')
-};
-
-
 // ===== SISTEMA DE AUTENTICACIÓN =====
 // 1. Elementos del DOM
 const authContainer = document.getElementById('auth-container');
@@ -182,6 +153,39 @@ if (!auth.check()) {
 // ===== TU CÓDIGO EXISTENTE =====
 // Aquí debajo coloca todo el código que ya tenías en tu script.js
 // Se ejecutará solo cuando el usuario esté autenticado
+
+
+
+// Constantes y elementos del DOM
+const DOM = {
+    taskInput: document.getElementById('taskInput'),
+    categorySelect: document.getElementById('categorySelect'),
+    prioritySelect: document.getElementById('prioritySelect'),
+    addButton: document.getElementById('addButton'),
+    taskList: document.getElementById('taskList'),
+    totalCount: document.getElementById('totalCount'),
+    completedCount: document.getElementById('completedCount'),
+    pendingCount: document.getElementById('pendingCount'),
+    highPriorityCount: document.getElementById('highPriorityCount'),
+    filterButtons: document.querySelectorAll('.filter-btn'),
+    clearBtn: document.getElementById('clearBtn'),
+    searchInput: document.getElementById('searchInput'),
+    clearSearch: document.getElementById('clearSearch'),
+    sortSelect: document.getElementById('sortSelect'),
+    themeToggle: document.getElementById('themeToggle'),
+    exportBtn: document.getElementById('exportBtn'),
+    importBtn: document.getElementById('importBtn'),
+    feedbackBtn: document.getElementById('feedbackBtn'),
+    feedbackModal: document.getElementById('feedbackModal'),
+    closeModal: document.querySelector('.close-modal'),
+    feedbackForm: document.getElementById('feedbackForm'),
+    snackbar: document.getElementById('snackbar'),
+    offlineStatus: document.getElementById('offlineStatus'),
+    productivityChart: document.getElementById('productivityChart')
+};
+
+
+
 
 // Variables de estado
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];

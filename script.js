@@ -1,158 +1,3 @@
-// ===== SISTEMA DE AUTENTICACIÓN =====
-// 1. Elementos del DOM
-const authContainer = document.getElementById('auth-container');
-const appContainer = document.getElementById('app-container');
-const loginForm = document.getElementById('login-form');
-const registerForm = document.getElementById('register-form');
-const loginTab = document.getElementById('login-tab');
-const registerTab = document.getElementById('register-tab');
-const logoutBtn = document.getElementById('logout-btn');
-const userNameSpan = document.getElementById('user-name');
-const snackbar = document.getElementById('snackbar');
-
-// 2. Mostrar notificación
-function showSnackbar(message, isError = false) {
-    snackbar.textContent = message;
-    snackbar.className = 'snackbar show';
-    if (isError) snackbar.style.backgroundColor = '#f72585';
-    
-    setTimeout(() => {
-        snackbar.className = snackbar.className.replace('show', '');
-        snackbar.style.backgroundColor = '#333';
-    }, 3000);
-}
-
-// 3. Base de datos de usuarios (simulada)
-const userDB = {
-    users: JSON.parse(localStorage.getItem('tm-users')) || [],
-    
-    save: function() {
-        localStorage.setItem('tm-users', JSON.stringify(this.users));
-    },
-    
-    findByEmail: function(email) {
-        return this.users.find(user => user.email === email);
-    },
-    
-    create: function(user) {
-        const newUser = {
-            id: Date.now().toString(),
-            ...user,
-            createdAt: new Date().toISOString()
-        };
-        this.users.push(newUser);
-        this.save();
-        return newUser;
-    }
-};
-
-// 4. Manejo de sesión
-const auth = {
-    currentUser: null,
-    
-    login: function(user) {
-        this.currentUser = user;
-        localStorage.setItem('tm-auth', JSON.stringify({
-            userId: user.id,
-            loggedIn: true
-        }));
-        showApp();
-    },
-    
-    logout: function() {
-        this.currentUser = null;
-        localStorage.removeItem('tm-auth');
-        showAuth();
-    },
-    
-    check: function() {
-        const authData = JSON.parse(localStorage.getItem('tm-auth'));
-        if (authData && authData.loggedIn) {
-            const user = userDB.users.find(u => u.id === authData.userId);
-            if (user) {
-                this.currentUser = user;
-                showApp();
-                return true;
-            }
-        }
-        return false;
-    }
-};
-
-// 5. Mostrar vistas
-function showApp() {
-    authContainer.style.display = 'none';
-    appContainer.style.display = 'block';
-    userNameSpan.textContent = auth.currentUser.name;
-    // Aquí puedes inicializar tu aplicación
-}
-
-function showAuth() {
-    authContainer.style.display = 'flex';
-    appContainer.style.display = 'none';
-    loginForm.reset();
-    registerForm.reset();
-}
-
-// 6. Event Listeners
-loginTab.addEventListener('click', () => {
-    loginTab.classList.add('active');
-    registerTab.classList.remove('active');
-    loginForm.style.display = 'flex';
-    registerForm.style.display = 'none';
-});
-
-registerTab.addEventListener('click', () => {
-    registerTab.classList.add('active');
-    loginTab.classList.remove('active');
-    registerForm.style.display = 'flex';
-    loginForm.style.display = 'none';
-});
-
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-    
-    const user = userDB.findByEmail(email);
-    if (!user || user.password !== password) {
-        showSnackbar('Credenciales incorrectas', true);
-        return;
-    }
-    
-    auth.login(user);
-    showSnackbar(`Bienvenido ${user.name}`);
-});
-
-registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('register-name').value;
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
-    
-    if (userDB.findByEmail(email)) {
-        showSnackbar('Este correo ya está registrado', true);
-        return;
-    }
-    
-    const user = userDB.create({ name, email, password });
-    auth.login(user);
-    showSnackbar(`Cuenta creada para ${user.name}`);
-});
-
-logoutBtn.addEventListener('click', () => {
-    auth.logout();
-    showSnackbar('Sesión cerrada correctamente');
-});
-
-// 7. Inicialización
-if (!auth.check()) {
-    showAuth();
-}
-
-// ===== TU CÓDIGO EXISTENTE =====
-// Aquí debajo coloca todo el código que ya tenías en tu script.js
-// Se ejecutará solo cuando el usuario esté autenticado
 
 
 
@@ -184,6 +29,269 @@ const DOM = {
     productivityChart: document.getElementById('productivityChart')
 };
 
+// ===== SISTEMA DE AUTENTICACIÓN MEJORADO =====
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Elementos del DOM para autenticación
+    const authContainer = document.getElementById('auth-container');
+    const appContainer = document.getElementById('app-container');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const loginTab = document.getElementById('login-tab');
+    const registerTab = document.getElementById('register-tab');
+    const logoutBtn = document.getElementById('logout-btn');
+    const userNameSpan = document.getElementById('user-name');
+
+    // 2. Mostrar notificación (usando tu función existente)
+    function authSnackbar(message, isError = false) {
+        if (window.showSnackbar) {
+            showSnackbar(message, isError);
+        } else {
+            console.log(message);
+        }
+    }
+
+    // 3. Base de datos de usuarios mejorada
+    const userDB = {
+        users: JSON.parse(localStorage.getItem('tm-users')) || [],
+        
+        save: function() {
+            localStorage.setItem('tm-users', JSON.stringify(this.users));
+        },
+        
+        findByEmail: function(email) {
+            return this.users.find(user => user.email === email);
+        },
+        
+        create: function(user) {
+            // Validación básica
+            if (!user.name || !user.email || !user.password) {
+                throw new Error('Datos de usuario incompletos');
+            }
+            
+            if (this.findByEmail(user.email)) {
+                throw new Error('El email ya está registrado');
+            }
+            
+            const newUser = {
+                id: Date.now().toString(),
+                name: user.name.trim(),
+                email: user.email.toLowerCase().trim(),
+                password: user.password, // En producción usar bcrypt
+                createdAt: new Date().toISOString(),
+                tasks: [] // Cada usuario tendrá sus propias tareas
+            };
+            
+            this.users.push(newUser);
+            this.save();
+            return newUser;
+        }
+    };
+
+    // 4. Manejo de sesión mejorado
+    const auth = {
+        currentUser: null,
+        
+        login: function(user) {
+            this.currentUser = user;
+            localStorage.setItem('tm-auth', JSON.stringify({
+                userId: user.id,
+                loggedIn: true,
+                lastLogin: new Date().toISOString()
+            }));
+            this.showApp();
+        },
+        
+        logout: function() {
+            localStorage.removeItem('tm-auth');
+            this.currentUser = null;
+            this.showAuth();
+        },
+        
+        check: function() {
+            try {
+                const authData = JSON.parse(localStorage.getItem('tm-auth'));
+                if (authData && authData.loggedIn) {
+                    const user = userDB.users.find(u => u.id === authData.userId);
+                    if (user) {
+                        this.currentUser = user;
+                        this.showApp();
+                        return true;
+                    }
+                }
+                return false;
+            } catch (e) {
+                console.error('Error checking auth:', e);
+                return false;
+            }
+        },
+        
+        showApp: function() {
+            if (authContainer) authContainer.style.display = 'none';
+            if (appContainer) appContainer.style.display = 'block';
+            if (userNameSpan && this.currentUser) {
+                userNameSpan.textContent = this.currentUser.name;
+            }
+            
+            // Cargar las tareas del usuario actual
+            if (this.currentUser) {
+                loadUserTasks(this.currentUser.id);
+            }
+        },
+        
+        showAuth: function() {
+            if (authContainer) authContainer.style.display = 'flex';
+            if (appContainer) appContainer.style.display = 'none';
+            if (loginForm) loginForm.reset();
+            if (registerForm) registerForm.reset();
+            
+            // Mostrar formulario de login por defecto
+            if (loginTab && registerTab && loginForm && registerForm) {
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+                loginForm.style.display = 'flex';
+                registerForm.style.display = 'none';
+            }
+        }
+    };
+
+    // 5. Cargar tareas del usuario
+    function loadUserTasks(userId) {
+        const user = userDB.users.find(u => u.id === userId);
+        if (user) {
+            tasks = user.tasks || [];
+            renderTasks();
+            updateCounters();
+        }
+    }
+
+    // 6. Guardar tareas del usuario
+    function saveUserTasks(userId) {
+        const user = userDB.users.find(u => u.id === userId);
+        if (user) {
+            user.tasks = tasks;
+            userDB.save();
+        }
+    }
+
+    // 7. Configurar event listeners con validación
+    function setupAuthListeners() {
+        // Tabs de login/registro
+        if (loginTab && registerTab) {
+            loginTab.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+                if (loginForm) loginForm.style.display = 'flex';
+                if (registerForm) registerForm.style.display = 'none';
+            });
+
+            registerTab.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerTab.classList.add('active');
+                loginTab.classList.remove('active');
+                if (registerForm) registerForm.style.display = 'flex';
+                if (loginForm) loginForm.style.display = 'none';
+            });
+        }
+
+        // Formulario de login
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('login-email')?.value;
+                const password = document.getElementById('login-password')?.value;
+
+                if (!email || !password) {
+                    authSnackbar('Por favor completa todos los campos', true);
+                    return;
+                }
+
+                try {
+                    const user = userDB.findByEmail(email);
+                    if (!user || user.password !== password) {
+                        authSnackbar('Credenciales incorrectas', true);
+                        return;
+                    }
+                    
+                    auth.login(user);
+                    authSnackbar(`Bienvenido ${user.name}`);
+                } catch (error) {
+                    authSnackbar(error.message, true);
+                }
+            });
+        }
+
+        // Formulario de registro
+        if (registerForm) {
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('register-name')?.value;
+                const email = document.getElementById('register-email')?.value;
+                const password = document.getElementById('register-password')?.value;
+
+                try {
+                    const user = userDB.create({ name, email, password });
+                    auth.login(user);
+                    authSnackbar(`Cuenta creada para ${user.name}`);
+                } catch (error) {
+                    authSnackbar(error.message, true);
+                }
+            });
+        }
+
+        // Botón de logout
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                auth.logout();
+                authSnackbar('Sesión cerrada correctamente');
+            });
+        }
+    }
+
+    // 8. Crear usuario de prueba si no existe
+    function createTestUser() {
+        if (!userDB.findByEmail('prueba@test.com')) {
+            try {
+                userDB.create({
+                    name: 'Usuario de prueba',
+                    email: 'prueba@test.com',
+                    password: '123456'
+                });
+                console.log('Usuario de prueba creado: prueba@test.com / 123456');
+            } catch (e) {
+                console.error('Error creando usuario de prueba:', e);
+            }
+        }
+    }
+
+    // 9. Inicialización
+    createTestUser();
+    setupAuthListeners();
+    
+    if (!auth.check()) {
+        auth.showAuth();
+    }
+
+    // Modificar tus funciones existentes para guardar tareas por usuario
+    const originalSaveTasks = window.saveTasks;
+    window.saveTasks = function() {
+        if (auth.currentUser) {
+            saveUserTasks(auth.currentUser.id);
+        }
+        if (originalSaveTasks) {
+            originalSaveTasks();
+        }
+    };
+
+    // Asegurar que las tareas se carguen al iniciar
+    if (auth.currentUser) {
+        loadUserTasks(auth.currentUser.id);
+    }
+});
+
+// ===== TU CÓDIGO EXISTENTE (sin cambios) =====
+// [Todo el resto de tu código permanece igual]
 
 
 
@@ -207,16 +315,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initProductivityChart();
     checkOnlineStatus();
     
-    // Crear usuario de prueba si no existe
-if (!userDB.findByEmail('prueba@test.com')) {
-    userDB.create({
-        name: 'Usuario de prueba',
-        email: 'prueba@test.com',
-        password: '123456' // En una app real, esto estaría encriptado
-    });
-    console.log('Usuario de prueba creado: prueba@test.com / 123456');
-}
-
     // Actualizar datos de productividad
     updateProductivityData();
     

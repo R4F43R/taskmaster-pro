@@ -207,6 +207,16 @@ document.addEventListener('DOMContentLoaded', function() {
     initProductivityChart();
     checkOnlineStatus();
     
+    // Crear usuario de prueba si no existe
+if (!userDB.findByEmail('prueba@test.com')) {
+    userDB.create({
+        name: 'Usuario de prueba',
+        email: 'prueba@test.com',
+        password: '123456' // En una app real, esto estaría encriptado
+    });
+    console.log('Usuario de prueba creado: prueba@test.com / 123456');
+}
+
     // Actualizar datos de productividad
     updateProductivityData();
     

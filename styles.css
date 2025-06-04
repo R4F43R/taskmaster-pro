@@ -644,6 +644,9 @@ footer button {
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
+    width: 100%;
+    margin-bottom: 15px;
+    display: block; /* Añade esto */
 }
 
 .auth-form button {
@@ -655,6 +658,17 @@ footer button {
     cursor: pointer;
     font-weight: 600;
     margin-top: 10px;
+}
+
+.auth-form input[type="email"] {
+    margin-bottom: 15px; /* Espaciado adicional */
+}
+
+/* Desactiva el formato automático de enlaces para emails */
+a[href^="mailto:"] {
+    text-decoration: none;
+    color: inherit;
+    pointer-events: none;
 }
 
 /* User Menu */

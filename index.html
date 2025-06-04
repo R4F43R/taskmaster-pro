@@ -651,28 +651,6 @@
                 <input type="password" id="register-password" placeholder="Contraseña" minlength="6" required>
                 <button type="submit">Crear cuenta</button>
             </form>
-
-            <div id="login-view" class="auth-view">
-                <h1><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</h1>
-                <form id="login-form" class="auth-form">
-                    <input type="email" id="login-email" placeholder="Correo electrónico" required>
-                    <input type="password" id="login-password" placeholder="Contraseña" required>
-                    <button type="submit">Ingresar</button>
-                </form>
-                <p class="auth-switch">¿No tienes cuenta? <a href="#" id="show-signup">Regístrate</a></p>
-            </div>
-
-            <!-- Signup Form (new) -->
-            <div id="signup-view" class="auth-view" style="display:none">
-                <h1><i class="fas fa-user-plus"></i> Registrarse</h1>
-                <form id="signup-form" class="auth-form">
-                    <input type="text" id="signup-name" placeholder="Nombre completo" required>
-                    <input type="email" id="signup-email" placeholder="Correo electrónico" required>
-                    <input type="password" id="signup-password" placeholder="Contraseña" minlength="6" required>
-                    <button type="submit">Crear cuenta</button>
-                </form>
-                <p class="auth-switch">¿Ya tienes cuenta? <a href="#" id="show-login">Inicia sesión</a></p>
-            </div>
         </div>
     </div>
 
@@ -681,7 +659,7 @@
         <header>
             <h1><i class="fas fa-tasks"></i> TaskMaster Pro</h1>
             <div class="user-menu">
-                <span id="user-name">Usuario Ejemplo</span>
+                <span id="user-name">Usuario</span>
                 <button id="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
             </div>
         </header>
@@ -739,19 +717,19 @@
                     
                     <div class="stats">
                         <div class="stat-item">
-                            <div class="stat-value" id="totalCount">5</div>
+                            <div class="stat-value" id="totalCount">0</div>
                             <div class="stat-label">Total</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="completedCount">2</div>
+                            <div class="stat-value" id="completedCount">0</div>
                             <div class="stat-label">Completadas</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="pendingCount">3</div>
+                            <div class="stat-value" id="pendingCount">0</div>
                             <div class="stat-label">Pendientes</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="highPriorityCount">1</div>
+                            <div class="stat-value" id="highPriorityCount">0</div>
                             <div class="stat-label">Prioridad Alta</div>
                         </div>
                     </div>
@@ -759,81 +737,11 @@
                     <div class="tasks-section">
                         <h3><i class="fas fa-clipboard-list"></i> Mis Tareas</h3>
                         <ul id="taskList" class="task-list">
-                            <li class="task-item">
-                                <input type="checkbox" class="task-checkbox" checked>
-                                <div class="task-content">
-                                    <div class="task-title">Completar informe mensual</div>
-                                    <div class="task-meta">
-                                        <span class="task-category">Trabajo</span>
-                                        <span class="task-priority priority-high">Alta</span>
-                                        <span>Hoy, 10:00</span>
-                                    </div>
-                                </div>
-                                <div class="task-actions">
-                                    <button class="task-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="task-btn"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </li>
-                            <li class="task-item">
-                                <input type="checkbox" class="task-checkbox" checked>
-                                <div class="task-content">
-                                    <div class="task-title">Hacer la compra semanal</div>
-                                    <div class="task-meta">
-                                        <span class="task-category">Compras</span>
-                                        <span class="task-priority priority-medium">Media</span>
-                                        <span>Hoy, 18:00</span>
-                                    </div>
-                                </div>
-                                <div class="task-actions">
-                                    <button class="task-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="task-btn"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </li>
-                            <li class="task-item">
-                                <input type="checkbox" class="task-checkbox">
-                                <div class="task-content">
-                                    <div class="task-title">Preparar presentación para reunión</div>
-                                    <div class="task-meta">
-                                        <span class="task-category">Trabajo</span>
-                                        <span class="task-priority priority-high">Alta</span>
-                                        <span>Mañana, 09:00</span>
-                                    </div>
-                                </div>
-                                <div class="task-actions">
-                                    <button class="task-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="task-btn"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </li>
-                            <li class="task-item">
-                                <input type="checkbox" class="task-checkbox">
-                                <div class="task-content">
-                                    <div class="task-title">Ir al gimnasio</div>
-                                    <div class="task-meta">
-                                        <span class="task-category">Personal</span>
-                                        <span class="task-priority priority-low">Baja</span>
-                                        <span>Mañana, 19:00</span>
-                                    </div>
-                                </div>
-                                <div class="task-actions">
-                                    <button class="task-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="task-btn"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </li>
-                            <li class="task-item">
-                                <input type="checkbox" class="task-checkbox">
-                                <div class="task-content">
-                                    <div class="task-title">Leer capítulo 5 del libro</div>
-                                    <div class="task-meta">
-                                        <span class="task-category">Estudio</span>
-                                        <span class="task-priority priority-medium">Media</span>
-                                        <span>Próximos días</span>
-                                    </div>
-                                </div>
-                                <div class="task-actions">
-                                    <button class="task-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="task-btn"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </li>
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <p>¡No hay tareas todavía!</p>
+                                <p>Agrega tu primera tarea usando el formulario superior.</p>
+                            </div>
                         </ul>
                     </div>
                 </div>
@@ -855,7 +763,7 @@
             </div>
         </main>
         
-        <div class="snackbar" id="snackbar">¡Tarea agregada correctamente!</div>
+        <div class="snackbar" id="snackbar"></div>
         
         <footer>
             <button id="exportBtn"><i class="fas fa-file-export"></i> Exportar</button>
@@ -894,7 +802,12 @@
     </div>
 
     <script>
-        // Funcionalidad básica para demostración
+        // Configuración del backend
+        const API_BASE_URL = window.location.hostname === 'localhost' ? 
+            'http://localhost:3000' : 
+            'https://tu-app-en-produccion.com';
+
+        // Funcionalidad de la aplicación
         document.addEventListener('DOMContentLoaded', function() {
             const authContainer = document.getElementById('auth-container');
             const appContainer = document.getElementById('app-container');
@@ -910,30 +823,310 @@
             const addButton = document.getElementById('addButton');
             const taskInput = document.getElementById('taskInput');
             const snackbar = document.getElementById('snackbar');
+            const userName = document.getElementById('user-name');
+            const taskList = document.getElementById('taskList');
             
-            // Mostrar app al hacer clic en login (simulación)
-            loginForm.addEventListener('submit', function(e) {
+            let currentUser = null;
+            let tasks = [];
+            
+            // ================ Funciones de autenticación ================
+            
+            // Registrar nuevo usuario
+            registerForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                authContainer.style.display = 'none';
-                appContainer.style.display = 'flex';
-                showSnackbar('Sesión iniciada correctamente');
+                const name = document.getElementById('register-name').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/register`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email, password })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        showSnackbar('Cuenta creada con éxito');
+                        // Cambiar a pestaña de login
+                        loginTab.click();
+                        // Limpiar formulario
+                        registerForm.reset();
+                    } else {
+                        showSnackbar(data.error || 'Error al registrar');
+                    }
+                } catch (error) {
+                    showSnackbar('Error de conexión');
+                }
             });
             
-            // Mostrar formulario de registro
-            registerTab.addEventListener('click', function() {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'block';
-                loginTab.classList.remove('active');
-                registerTab.classList.add('active');
+            // Iniciar sesión
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        currentUser = data.user;
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        
+                        // Mostrar aplicación
+                        authContainer.style.display = 'none';
+                        appContainer.style.display = 'flex';
+                        userName.textContent = currentUser.name;
+                        
+                        // Cargar tareas
+                        loadTasks();
+                        
+                        showSnackbar(`Bienvenido, ${currentUser.name}`);
+                    } else {
+                        showSnackbar(data.error || 'Error al iniciar sesión');
+                    }
+                } catch (error) {
+                    showSnackbar('Error de conexión');
+                }
             });
             
-            // Mostrar formulario de login
-            loginTab.addEventListener('click', function() {
-                registerForm.style.display = 'none';
-                loginForm.style.display = 'block';
-                registerTab.classList.remove('active');
-                loginTab.classList.add('active');
+            // Cerrar sesión
+            logoutBtn.addEventListener('click', function() {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                appContainer.style.display = 'none';
+                authContainer.style.display = 'block';
+                loginForm.reset();
+                showSnackbar('Sesión cerrada correctamente');
             });
+            
+            // ================ Funciones de tareas ================
+            
+            // Cargar tareas desde el backend
+            async function loadTasks() {
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${API_BASE_URL}/api/tasks`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        tasks = await response.json();
+                        renderTasks();
+                        updateStats();
+                    } else {
+                        showSnackbar('Error al cargar tareas');
+                    }
+                } catch (error) {
+                    showSnackbar('Error de conexión');
+                }
+            }
+            
+            // Renderizar lista de tareas
+            function renderTasks() {
+                if (tasks.length === 0) {
+                    taskList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>¡No hay tareas todavía!</p>
+                            <p>Agrega tu primera tarea usando el formulario superior.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                taskList.innerHTML = '';
+                
+                tasks.forEach(task => {
+                    const taskItem = document.createElement('li');
+                    taskItem.className = 'task-item';
+                    taskItem.dataset.id = task.id;
+                    taskItem.dataset.priority = task.priority;
+                    taskItem.dataset.completed = task.completed;
+                    
+                    taskItem.innerHTML = `
+                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+                        <div class="task-content">
+                            <div class="task-title">${task.title}</div>
+                            <div class="task-meta">
+                                <span class="task-category">${getCategoryName(task.category)}</span>
+                                <span class="task-priority priority-${task.priority}">${getPriorityName(task.priority)}</span>
+                                <span>${new Date(task.created_at).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="task-btn edit-btn"><i class="fas fa-edit"></i></button>
+                            <button class="task-btn delete-btn"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    
+                    // Eventos para los controles de la tarea
+                    const checkbox = taskItem.querySelector('.task-checkbox');
+                    checkbox.addEventListener('change', () => toggleTaskStatus(task.id, checkbox.checked));
+                    
+                    const deleteBtn = taskItem.querySelector('.delete-btn');
+                    deleteBtn.addEventListener('click', () => deleteTask(task.id));
+                    
+                    const editBtn = taskItem.querySelector('.edit-btn');
+                    editBtn.addEventListener('click', () => editTask(task.id));
+                    
+                    taskList.appendChild(taskItem);
+                });
+            }
+            
+            // Obtener nombre de categoría
+            function getCategoryName(category) {
+                const categories = {
+                    'personal': 'Personal',
+                    'work': 'Trabajo',
+                    'shopping': 'Compras',
+                    'study': 'Estudio',
+                    'other': 'Otro'
+                };
+                return categories[category] || category;
+            }
+            
+            // Obtener nombre de prioridad
+            function getPriorityName(priority) {
+                const priorities = {
+                    'low': 'Baja',
+                    'medium': 'Media',
+                    'high': 'Alta'
+                };
+                return priorities[priority] || priority;
+            }
+            
+            // Actualizar estadísticas
+            function updateStats() {
+                const totalCount = tasks.length;
+                const completedCount = tasks.filter(task => task.completed).length;
+                const pendingCount = totalCount - completedCount;
+                const highPriorityCount = tasks.filter(task => task.priority === 'high').length;
+                
+                document.getElementById('totalCount').textContent = totalCount;
+                document.getElementById('completedCount').textContent = completedCount;
+                document.getElementById('pendingCount').textContent = pendingCount;
+                document.getElementById('highPriorityCount').textContent = highPriorityCount;
+            }
+            
+            // Agregar nueva tarea
+            addButton.addEventListener('click', async function() {
+                const title = taskInput.value.trim();
+                const category = document.getElementById('categorySelect').value;
+                const priority = document.getElementById('prioritySelect').value;
+                
+                if (!title) {
+                    showSnackbar('Por favor ingresa una tarea');
+                    return;
+                }
+                
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${API_BASE_URL}/api/tasks`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ title, category, priority })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        tasks.push(data);
+                        renderTasks();
+                        updateStats();
+                        taskInput.value = '';
+                        showSnackbar('Tarea agregada correctamente');
+                    } else {
+                        showSnackbar(data.error || 'Error al agregar tarea');
+                    }
+                } catch (error) {
+                    showSnackbar('Error de conexión');
+                }
+            });
+            
+            // Permitir añadir tarea con Enter
+            taskInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addButton.click();
+                }
+            });
+            
+            // Cambiar estado de tarea (completada/pendiente)
+            async function toggleTaskStatus(taskId, completed) {
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${API_BASE_URL}/api/tasks/${taskId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ completed })
+                    });
+                    
+                    if (response.ok) {
+                        const task = tasks.find(t => t.id === taskId);
+                        if (task) {
+                            task.completed = completed;
+                            updateStats();
+                        }
+                    } else {
+                        showSnackbar('Error al actualizar tarea');
+                    }
+                } catch (error) {
+                    showSnackbar('Error de conexión');
+                }
+            }
+            
+            // Eliminar tarea
+            async function deleteTask(taskId) {
+                if (!confirm('¿Estás seguro de que quieres eliminar esta tarea?')) return;
+                
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${API_BASE_URL}/api/tasks/${taskId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        tasks = tasks.filter(task => task.id !== taskId);
+                        renderTasks();
+                        updateStats();
+                        showSnackbar('Tarea eliminada');
+                    } else {
+                        showSnackbar('Error al eliminar tarea');
+                    }
+                } catch (error) {
+                    showSnackbar('Error de conexión');
+                }
+            }
+            
+            // ================ Funciones de UI ================
+            
+            // Mostrar snackbar
+            function showSnackbar(message) {
+                snackbar.textContent = message;
+                snackbar.style.display = 'block';
+                setTimeout(() => {
+                    snackbar.style.display = 'none';
+                }, 3000);
+            }
             
             // Cambiar tema
             themeToggle.addEventListener('click', function() {
@@ -941,13 +1134,7 @@
                 const newTheme = currentTheme === 'light' ? 'dark' : 'light';
                 document.documentElement.setAttribute('data-theme', newTheme);
                 themeToggle.innerHTML = newTheme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-            });
-            
-            // Cerrar sesión
-            logoutBtn.addEventListener('click', function() {
-                appContainer.style.display = 'none';
-                authContainer.style.display = 'block';
-                showSnackbar('Sesión cerrada correctamente');
+                localStorage.setItem('theme', newTheme);
             });
             
             // Abrir modal de feedback
@@ -967,45 +1154,371 @@
                 }
             });
             
-            // Añadir tarea
-            addButton.addEventListener('click', function() {
-                if (taskInput.value.trim() !== '') {
-                    showSnackbar('Tarea agregada: ' + taskInput.value);
-                    taskInput.value = '';
+            // Enviar feedback
+            document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const type = document.getElementById('feedbackType').value;
+                const message = document.getElementById('feedbackMessage').value;
+                
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${API_BASE_URL}/api/feedback`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ type, message })
+                    });
+                    
+                    if (response.ok) {
+                        showSnackbar('¡Gracias por tu feedback!');
+                        feedbackModal.style.display = 'none';
+                        this.reset();
+                    } else {
+                        showSnackbar('Error al enviar feedback');
+                    }
+                } catch (error) {
+                    showSnackbar('Error de conexión');
                 }
             });
             
-            // Permitir añadir tarea con Enter
-            taskInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    addButton.click();
-                }
+            // Cambiar entre login y registro
+            loginTab.addEventListener('click', function() {
+                registerForm.style.display = 'none';
+                loginForm.style.display = 'block';
+                registerTab.classList.remove('active');
+                loginTab.classList.add('active');
             });
             
-            // Mostrar snackbar
-            function showSnackbar(message) {
-                snackbar.textContent = message;
-                snackbar.style.display = 'block';
-                setTimeout(() => {
-                    snackbar.style.display = 'none';
-                }, 3000);
+            registerTab.addEventListener('click', function() {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                loginTab.classList.remove('active');
+                registerTab.classList.add('active');
+            });
+            
+            // Comprobar si hay sesión guardada
+            function checkSession() {
+                const token = localStorage.getItem('token');
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                
+                if (token && user.name) {
+                    currentUser = user;
+                    authContainer.style.display = 'none';
+                    appContainer.style.display = 'flex';
+                    userName.textContent = currentUser.name;
+                    loadTasks();
+                }
             }
             
-            // Simular funcionalidad de checkboxes
-            const checkboxes = document.querySelectorAll('.task-checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    const taskItem = this.closest('.task-item');
-                    if (this.checked) {
-                        taskItem.style.opacity = '0.7';
-                        taskItem.style.textDecoration = 'line-through';
-                    } else {
-                        taskItem.style.opacity = '1';
-                        taskItem.style.textDecoration = 'none';
+            // Comprobar tema guardado
+            function checkTheme() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                themeToggle.innerHTML = savedTheme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+            }
+            
+            // Inicializar aplicación
+            checkTheme();
+            checkSession();
+        });
+    </script>
+    
+    <!-- Código del servidor backend integrado -->
+    <script type="text/server">
+        // Este código se ejecutará en el servidor
+        const express = require('express');
+        const sqlite3 = require('sqlite3').verbose();
+        const bodyParser = require('body-parser');
+        const bcrypt = require('bcryptjs');
+        const jwt = require('jsonwebtoken');
+        const cors = require('cors');
+        
+        const app = express();
+        const PORT = process.env.PORT || 3000;
+        const SECRET_KEY = 'taskmaster_secret_key';
+        
+        // Middleware
+        app.use(cors());
+        app.use(bodyParser.json());
+        
+        // Base de datos (SQLite)
+        const db = new sqlite3.Database(':memory:');
+        
+        // Crear tablas
+        db.serialize(() => {
+            // Tabla de usuarios
+            db.run(`
+                CREATE TABLE IF NOT EXISTS users (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    email TEXT UNIQUE NOT NULL,
+                    password TEXT NOT NULL,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+            `);
+            
+            // Tabla de tareas
+            db.run(`
+                CREATE TABLE IF NOT EXISTS tasks (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    title TEXT NOT NULL,
+                    category TEXT NOT NULL,
+                    priority TEXT NOT NULL,
+                    completed BOOLEAN DEFAULT 0,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY(user_id) REFERENCES users(id)
+                )
+            `);
+            
+            // Tabla de feedback
+            db.run(`
+                CREATE TABLE IF NOT EXISTS feedback (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER,
+                    type TEXT NOT NULL,
+                    message TEXT NOT NULL,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+            `);
+        });
+        
+        // ================ Rutas de API ================
+        
+        // Registrar usuario
+        app.post('/api/register', async (req, res) => {
+            const { name, email, password } = req.body;
+            
+            if (!name || !email || !password) {
+                return res.status(400).json({ error: 'Todos los campos son requeridos' });
+            }
+            
+            try {
+                // Verificar si el usuario ya existe
+                db.get('SELECT * FROM users WHERE email = ?', [email], async (err, user) => {
+                    if (err) {
+                        return res.status(500).json({ error: 'Error en la base de datos' });
+                    }
+                    
+                    if (user) {
+                        return res.status(400).json({ error: 'El correo ya está registrado' });
+                    }
+                    
+                    // Hash de la contraseña
+                    const hashedPassword = await bcrypt.hash(password, 10);
+                    
+                    // Crear usuario
+                    db.run(
+                        'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+                        [name, email, hashedPassword],
+                        function(err) {
+                            if (err) {
+                                return res.status(500).json({ error: 'Error al crear usuario' });
+                            }
+                            
+                            res.status(201).json({ 
+                                message: 'Usuario registrado con éxito',
+                                userId: this.lastID 
+                            });
+                        }
+                    );
+                });
+            } catch (error) {
+                res.status(500).json({ error: 'Error interno del servidor' });
+            }
+        });
+        
+        // Iniciar sesión
+        app.post('/api/login', (req, res) => {
+            const { email, password } = req.body;
+            
+            if (!email || !password) {
+                return res.status(400).json({ error: 'Correo y contraseña requeridos' });
+            }
+            
+            // Buscar usuario
+            db.get('SELECT * FROM users WHERE email = ?', [email], async (err, user) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Error en la base de datos' });
+                }
+                
+                if (!user) {
+                    return res.status(401).json({ error: 'Credenciales inválidas' });
+                }
+                
+                // Verificar contraseña
+                const passwordMatch = await bcrypt.compare(password, user.password);
+                
+                if (!passwordMatch) {
+                    return res.status(401).json({ error: 'Credenciales inválidas' });
+                }
+                
+                // Crear token JWT
+                const token = jwt.sign(
+                    { id: user.id, email: user.email }, 
+                    SECRET_KEY, 
+                    { expiresIn: '1h' }
+                );
+                
+                res.json({ 
+                    token,
+                    user: {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email
                     }
                 });
             });
         });
+        
+        // Middleware de autenticación
+        const authenticateToken = (req, res, next) => {
+            const authHeader = req.headers['authorization'];
+            const token = authHeader && authHeader.split(' ')[1];
+            
+            if (!token) {
+                return res.sendStatus(401);
+            }
+            
+            jwt.verify(token, SECRET_KEY, (err, user) => {
+                if (err) {
+                    return res.sendStatus(403);
+                }
+                req.user = user;
+                next();
+            });
+        };
+        
+        // Obtener tareas del usuario
+        app.get('/api/tasks', authenticateToken, (req, res) => {
+            db.all(
+                'SELECT * FROM tasks WHERE user_id = ?',
+                [req.user.id],
+                (err, tasks) => {
+                    if (err) {
+                        return res.status(500).json({ error: 'Error al obtener tareas' });
+                    }
+                    res.json(tasks);
+                }
+            );
+        });
+        
+        // Crear nueva tarea
+        app.post('/api/tasks', authenticateToken, (req, res) => {
+            const { title, category, priority } = req.body;
+            
+            if (!title || !category || !priority) {
+                return res.status(400).json({ error: 'Todos los campos son requeridos' });
+            }
+            
+            db.run(
+                'INSERT INTO tasks (user_id, title, category, priority) VALUES (?, ?, ?, ?)',
+                [req.user.id, title, category, priority],
+                function(err) {
+                    if (err) {
+                        return res.status(500).json({ error: 'Error al crear tarea' });
+                    }
+                    
+                    db.get(
+                        'SELECT * FROM tasks WHERE id = ?',
+                        [this.lastID],
+                        (err, task) => {
+                            if (err) {
+                                return res.status(500).json({ error: 'Error al obtener tarea' });
+                            }
+                            res.status(201).json(task);
+                        }
+                    );
+                }
+            );
+        });
+        
+        // Actualizar tarea
+        app.put('/api/tasks/:id', authenticateToken, (req, res) => {
+            const taskId = req.params.id;
+            const { title, category, priority, completed } = req.body;
+            
+            db.run(
+                `UPDATE tasks 
+                 SET title = ?, category = ?, priority = ?, completed = ?
+                 WHERE id = ? AND user_id = ?`,
+                [title, category, priority, completed, taskId, req.user.id],
+                function(err) {
+                    if (err) {
+                        return res.status(500).json({ error: 'Error al actualizar tarea' });
+                    }
+                    
+                    if (this.changes === 0) {
+                        return res.status(404).json({ error: 'Tarea no encontrada' });
+                    }
+                    
+                    res.sendStatus(204);
+                }
+            );
+        });
+        
+        // Eliminar tarea
+        app.delete('/api/tasks/:id', authenticateToken, (req, res) => {
+            const taskId = req.params.id;
+            
+            db.run(
+                'DELETE FROM tasks WHERE id = ? AND user_id = ?',
+                [taskId, req.user.id],
+                function(err) {
+                    if (err) {
+                        return res.status(500).json({ error: 'Error al eliminar tarea' });
+                    }
+                    
+                    if (this.changes === 0) {
+                        return res.status(404).json({ error: 'Tarea no encontrada' });
+                    }
+                    
+                    res.sendStatus(204);
+                }
+            );
+        });
+        
+        // Enviar feedback
+        app.post('/api/feedback', authenticateToken, (req, res) => {
+            const { type, message } = req.body;
+            
+            if (!type || !message) {
+                return res.status(400).json({ error: 'Todos los campos son requeridos' });
+            }
+            
+            db.run(
+                'INSERT INTO feedback (user_id, type, message) VALUES (?, ?, ?)',
+                [req.user.id, type, message],
+                function(err) {
+                    if (err) {
+                        return res.status(500).json({ error: 'Error al enviar feedback' });
+                    }
+                    res.status(201).json({ message: 'Feedback enviado con éxito' });
+                }
+            );
+        });
+        
+        // Iniciar servidor
+        app.listen(PORT, () => {
+            console.log(`Servidor backend corriendo en http://localhost:${PORT}`);
+        });
+    </script>
+    
+    <!-- Script para ejecutar el servidor backend si estamos en un entorno Node.js -->
+    <script>
+        // Si estamos en un entorno Node.js, ejecutar el servidor backend
+        if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+            const serverScript = document.querySelector('script[type="text/server"]').textContent;
+            const vm = require('vm');
+            const context = vm.createContext({
+                require: require,
+                process: process,
+                console: console
+            });
+            vm.runInContext(serverScript, context);
+        }
     </script>
 </body>
 </html>

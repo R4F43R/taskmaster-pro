@@ -1,5 +1,5 @@
 // Configuración de la API - IMPORTANTE: CAMBIAR POR LA URL DE TU BACKEND EN RENDER
-const API_BASE_URL = "https://taskmaster-backend.onrender.com";
+const API_BASE_URL = "https://taskmaster-backend-2cu9.onrender.com";
 
 // Elementos del DOM
 const authContainer = document.getElementById('auth-container');

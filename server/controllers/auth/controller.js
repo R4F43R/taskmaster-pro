@@ -199,6 +199,14 @@ exports.getUserProfile = async (req, res) => {
             
             res.json(user);
         });
+        if (user.id !== userId) {
+                    return res.status(403).json({ error: 'No autorizado' });
+                }
+                
+                res.json(user);
+            }
+
+        );   
     } catch (error) {
         console.error('Error al obtener perfil:', error);
         res.status(500).json({ error: 'Error interno del servidor' });

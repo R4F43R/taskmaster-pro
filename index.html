@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMaster - Gestor de Tareas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-tasks"></i>
+            <h1>TaskMaster</h1>
+        </div>
+        <nav>
+            <ul id="nav-links">
+                <li><a href="#" id="tasks-link">Mis Tareas</a></li>
+                <li><a href="#" id="profile-link">Perfil</a></li>
+            </ul>
+        </nav>
+        <div id="auth-buttons">
+            <button id="login-btn">Iniciar Sesión</button>
+            <button id="register-btn">Registrarse</button>
+        </div>
+        <div id="user-section" style="display:none;">
+            <span id="username-display"></span>
+            <button id="logout-btn">Cerrar Sesión</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sección de autenticación -->
+        <section id="auth-section">
+            <div class="auth-card" id="login-card">
+                <h2>Iniciar Sesión</h2>
+                <form id="login-form">
+                    <input type="email" id="login-email" placeholder="Correo electrónico" required>
+                    <input type="password" id="login-password" placeholder="Contraseña" required>
+                    <button type="submit">Ingresar</button>
+                </form>
+            </div>
+            
+            <div class="auth-card" id="register-card" style="display:none;">
+                <h2>Crear Cuenta</h2>
+                <form id="register-form">
+                    <input type="text" id="register-name" placeholder="Nombre completo" required>
+                    <input type="email" id="register-email" placeholder="Correo electrónico" required>
+                    <input type="password" id="register-password" placeholder="Contraseña" required>
+                    <button type="submit">Registrarse</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sección de gestión de tareas -->
+        <section id="tasks-section" style="display:none;">
+            <div class="tasks-header">
+                <h2>Mis Tareas</h2>
+                <button id="add-task-btn"><i class="fas fa-plus"></i> Nueva Tarea</button>
+            </div>
+            
+            <div class="task-filters">
+                <select id="filter-select">
+                    <option value="all">Todas las tareas</option>
+                    <option value="pending">Pendientes</option>
+                    <option value="completed">Completadas</option>
+                </select>
+                <input type="text" id="search-input" placeholder="Buscar tareas...">
+            </div>
+            
+            <div class="task-form" id="task-form" style="display:none;">
+                <h3 id="form-title">Nueva Tarea</h3>
+                <form id="task-form-elements">
+                    <input type="text" id="task-title" placeholder="Título" required>
+                    <textarea id="task-description" placeholder="Descripción"></textarea>
+                    <div class="form-row">
+                        <label for="task-due">Fecha límite:</label>
+                        <input type="date" id="task-due">
+                        <label for="task-priority">Prioridad:</label>
+                        <select id="task-priority">
+                            <option value="low">Baja</option>
+                            <option value="medium" selected>Media</option>
+                            <option value="high">Alta</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" id="save-task-btn">Guardar</button>
+                        <button type="button" id="cancel-task-btn">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="tasks-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 TaskMaster - Gestor de Tareas</p>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="tasks.js"></script>
+    <script src="ui.js"></script>
+</body>
+</html>

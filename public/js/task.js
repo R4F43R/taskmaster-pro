@@ -20,6 +20,18 @@ function getAuthToken() {
     return localStorage.getItem('token');
 }
 
+// Función para mostrar snackbar
+function showSnackbar(message, type = 'success') {
+    const snackbar = document.getElementById('snackbar');
+    snackbar.textContent = message;
+    snackbar.className = `snackbar ${type}`;
+    snackbar.style.display = 'block';
+    
+    setTimeout(() => {
+        snackbar.style.display = 'none';
+    }, 3000);
+}
+
 // Cargar tareas desde el servidor
 async function loadTasks() {
     try {
@@ -36,7 +48,7 @@ async function loadTasks() {
             showSnackbar('Error al cargar tareas', 'error');
         }
     } catch (error) {
-        showSnackbar('Error de conexión', 'error');
+        showSnackbar('Error de conexión. Verifica la URL del backend.', 'error');
     }
 }
 
@@ -161,7 +173,7 @@ addButton.addEventListener('click', async function() {
             showSnackbar(data.error || 'Error al agregar tarea', 'error');
         }
     } catch (error) {
-        showSnackbar('Error de conexión', 'error');
+        showSnackbar('Error de conexión. Verifica la URL del backend.', 'error');
     }
 });
 
@@ -195,7 +207,7 @@ async function toggleTaskStatus(taskId, completed) {
             showSnackbar('Error al actualizar tarea', 'error');
         }
     } catch (error) {
-        showSnackbar('Error de conexión', 'error');
+        showSnackbar('Error de conexión. Verifica la URL del backend.', 'error');
     }
 }
 
@@ -221,11 +233,11 @@ async function deleteTask(taskId) {
             showSnackbar('Error al eliminar tarea', 'error');
         }
     } catch (error) {
-        showSnackbar('Error de conexión', 'error');
+        showSnackbar('Error de conexión. Verifica la URL del backend.', 'error');
     }
 }
 
-// Editar tarea (simplificado para el ejemplo)
+// Editar tarea
 function editTask(taskId) {
     const task = tasks.find(t => t.id === taskId);
     if (!task) return;
@@ -260,7 +272,7 @@ async function updateTaskTitle(taskId, newTitle) {
             showSnackbar('Error al actualizar tarea', 'error');
         }
     } catch (error) {
-        showSnackbar('Error de conexión', 'error');
+        showSnackbar('Error de conexión. Verifica la URL del backend.', 'error');
     }
 }
 
@@ -334,7 +346,38 @@ function renderFilteredTasks(filteredTasks) {
     taskList.innerHTML = '';
     
     filteredTasks.forEach(task => {
-        // Mismo código de renderizado que en renderTasks()
+        const taskItem = document.createElement('li');
+        taskItem.className = 'task-item';
+        taskItem.dataset.id = task.id;
+        taskItem.dataset.priority = task.priority;
+        taskItem.dataset.completed = task.completed;
+        
+        taskItem.innerHTML = `
+            <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+            <div class="task-content">
+                <div class="task-title">${task.title}</div>
+                <div class="task-meta">
+                    <span class="task-category">${getCategoryName(task.category)}</span>
+                    <span class="task-priority priority-${task.priority}">${getPriorityName(task.priority)}</span>
+                    <span>${new Date(task.created_at).toLocaleDateString()}</span>
+                </div>
+            </div>
+            <div class="task-actions">
+                <button class="task-btn edit-btn"><i class="fas fa-edit"></i></button>
+                <button class="task-btn delete-btn"><i class="fas fa-trash"></i></button>
+            </div>
+        `;
+        
+        const checkbox = taskItem.querySelector('.task-checkbox');
+        checkbox.addEventListener('change', () => toggleTaskStatus(task.id, checkbox.checked));
+        
+        const deleteBtn = taskItem.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', () => deleteTask(task.id));
+        
+        const editBtn = taskItem.querySelector('.edit-btn');
+        editBtn.addEventListener('click', () => editTask(task.id));
+        
+        taskList.appendChild(taskItem);
     });
 }
 

@@ -1,5 +1,5 @@
-// Configuración de la API
-const API_BASE_URL = "https://taskmaster-backend-2cu9.onrender.com";
+// Configuración de la API - IMPORTANTE: CAMBIAR POR LA URL DE TU BACKEND EN RENDER
+const API_BASE_URL = "https://taskmaster-backend.onrender.com";
 
 // Elementos del DOM
 const authContainer = document.getElementById('auth-container');
@@ -10,6 +10,18 @@ const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
 const logoutBtn = document.getElementById('logout-btn');
 const userName = document.getElementById('user-name');
+
+// Función para mostrar snackbar (temporal)
+function showSnackbar(message, type = 'success') {
+    const snackbar = document.getElementById('snackbar');
+    snackbar.textContent = message;
+    snackbar.className = `snackbar ${type}`;
+    snackbar.style.display = 'block';
+    
+    setTimeout(() => {
+        snackbar.style.display = 'none';
+    }, 3000);
+}
 
 // Registrar nuevo usuario
 registerForm.addEventListener('submit', async function(e) {
@@ -37,7 +49,7 @@ registerForm.addEventListener('submit', async function(e) {
             showSnackbar(data.error || 'Error al registrar', 'error');
         }
     } catch (error) {
-        showSnackbar('Error de conexión', 'error');
+        showSnackbar('Error de conexión. Verifica la URL del backend.', 'error');
     }
 });
 
@@ -67,14 +79,16 @@ loginForm.addEventListener('submit', async function(e) {
             userName.textContent = data.user.name;
             
             // Cargar tareas
-            loadTasks();
+            if (typeof loadTasks === 'function') {
+                loadTasks();
+            }
             
             showSnackbar(`Bienvenido, ${data.user.name}`);
         } else {
             showSnackbar(data.error || 'Error al iniciar sesión', 'error');
         }
     } catch (error) {
-        showSnackbar('Error de conexión', 'error');
+        showSnackbar('Error de conexión. Verifica la URL del backend.', 'error');
     }
 });
 
@@ -112,7 +126,10 @@ function checkSession() {
         authContainer.style.display = 'none';
         appContainer.style.display = 'flex';
         userName.textContent = user.name;
-        loadTasks();
+        
+        if (typeof loadTasks === 'function') {
+            loadTasks();
+        }
     }
 }
 

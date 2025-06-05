@@ -1,15 +1,3 @@
-// Mostrar snackbar
-function showSnackbar(message, type = 'success') {
-    const snackbar = document.getElementById('snackbar');
-    snackbar.textContent = message;
-    snackbar.className = `snackbar ${type}`;
-    snackbar.style.display = 'block';
-    
-    setTimeout(() => {
-        snackbar.style.display = 'none';
-    }, 3000);
-}
-
 // Cambiar tema
 const themeToggle = document.getElementById('theme-toggle');
 themeToggle.addEventListener('click', function() {
@@ -58,7 +46,7 @@ feedbackForm.addEventListener('submit', async function(e) {
     const message = document.getElementById('feedbackMessage').value;
     
     try {
-        const token = getAuthToken();
+        const token = localStorage.getItem('token');
         const response = await fetch(`${API_BASE_URL}/api/feedback`, {
             method: 'POST',
             headers: {
@@ -76,9 +64,26 @@ feedbackForm.addEventListener('submit', async function(e) {
             showSnackbar('Error al enviar feedback', 'error');
         }
     } catch (error) {
-        showSnackbar('Error de conexión', 'error');
+        showSnackbar('Error de conexión. Verifica la URL del backend.', 'error');
     }
 });
+
+// Función para obtener token
+function getAuthToken() {
+    return localStorage.getItem('token');
+}
+
+// Función para mostrar snackbar
+function showSnackbar(message, type = 'success') {
+    const snackbar = document.getElementById('snackbar');
+    snackbar.textContent = message;
+    snackbar.className = `snackbar ${type}`;
+    snackbar.style.display = 'block';
+    
+    setTimeout(() => {
+        snackbar.style.display = 'none';
+    }, 3000);
+}
 
 // Inicializar tema al cargar
 loadSavedTheme();

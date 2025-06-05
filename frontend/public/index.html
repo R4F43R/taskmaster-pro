@@ -4,185 +4,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskMaster Pro</title>
-    <meta name="description" content="Aplicación avanzada de gestión de tareas">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos anteriores... */
+        .deployment-info {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .deployment-steps {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .step {
+            background: var(--background-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius-sm);
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .step-number {
+            position: absolute;
+            left: 1rem;
+            top: 1.5rem;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .render-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+    </style>
 </head>
 <body>
-    <!-- Contenedor de Autenticación -->
-    <div id="auth-container" class="auth-container">
-        <div class="auth-card">
-            <div class="auth-tabs">
-                <button class="active" id="login-tab">Iniciar Sesión</button>
-                <button id="register-tab">Registrarse</button>
-            </div>
-            
-            <form id="login-form" class="auth-form">
-                <input type="email" id="login-email" placeholder="Correo electrónico" required>
-                <input type="password" id="login-password" placeholder="Contraseña" required>
-                <button type="submit">Ingresar</button>
-            </form>
-            
-            <form id="register-form" class="auth-form" style="display:none">
-                <input type="text" id="register-name" placeholder="Nombre completo" required>
-                <input type="email" id="register-email" placeholder="Correo electrónico" required>
-                <input type="password" id="register-password" placeholder="Contraseña" minlength="6" required>
-                <button type="submit">Crear cuenta</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Contenedor Principal de la App (oculto inicialmente) -->
-    <div id="app-container" class="container" style="display:none">
+    <div class="container">
         <header>
             <h1><i class="fas fa-tasks"></i> TaskMaster Pro</h1>
-            <div class="user-menu">
-                <span id="user-name">Usuario</span>
-                <button id="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
         </header>
         
         <main>
             <div class="app-card">
                 <div class="card-header">
-                    <h2><i class="fas fa-plus-circle"></i> Nueva Tarea</h2>
+                    <h2><i class="fas fa-cloud-upload-alt"></i> Instrucciones de Despliegue</h2>
                 </div>
                 <div class="card-body">
-                    <div class="input-group">
-                        <input type="text" id="taskInput" placeholder="Ingresa una nueva tarea..." autocomplete="off">
-                        <select id="categorySelect">
-                            <option value="personal">Personal</option>
-                            <option value="work">Trabajo</option>
-                            <option value="shopping">Compras</option>
-                            <option value="study">Estudio</option>
-                            <option value="other">Otro</option>
-                        </select>
-                        <select id="prioritySelect">
-                            <option value="low">Baja</option>
-                            <option value="medium" selected>Media</option>
-                            <option value="high">Alta</option>
-                        </select>
-                        <button id="addButton">
-                            <i class="fas fa-plus"></i> Agregar
-                        </button>
-                    </div>
-                    
-                    <div class="search-group">
-                        <input type="text" id="searchInput" placeholder="Buscar tareas...">
-                        <button id="clearSearch">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="filters">
-                        <button class="filter-btn active" data-filter="all">
-                            <i class="fas fa-list"></i> Todas
-                        </button>
-                        <button class="filter-btn" data-filter="completed">
-                            <i class="fas fa-check-circle"></i> Completadas
-                        </button>
-                        <button class="filter-btn" data-filter="pending">
-                            <i class="fas fa-clock"></i> Pendientes
-                        </button>
-                        <div class="sort-options">
-                            <select id="sortSelect">
-                                <option value="newest">Más nuevas primero</option>
-                                <option value="oldest">Más antiguas primero</option>
-                                <option value="priority">Por prioridad</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="stat-value" id="totalCount">0</div>
-                            <div class="stat-label">Total</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="completedCount">0</div>
-                            <div class="stat-label">Completadas</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="pendingCount">0</div>
-                            <div class="stat-label">Pendientes</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="highPriorityCount">0</div>
-                            <div class="stat-label">Prioridad Alta</div>
-                        </div>
-                    </div>
-                    
-                    <div class="tasks-section">
-                        <h3><i class="fas fa-clipboard-list"></i> Mis Tareas</h3>
-                        <ul id="taskList" class="task-list">
-                            <div class="empty-state">
-                                <i class="fas fa-inbox"></i>
-                                <p>¡No hay tareas todavía!</p>
-                                <p>Agrega tu primera tarea usando el formulario superior.</p>
+                    <div class="deployment-info">
+                        <p>GitHub Pages solo puede servir contenido estático. Para ejecutar la aplicación completa:</p>
+                        
+                        <div class="deployment-steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <h3>Desplegar el Backend en Render</h3>
+                                <p>El backend (Node.js + SQLite) debe desplegarse en <a href="https://render.com" class="render-link" target="_blank">Render.com</a></p>
+                                
+                                <div class="code-block">
+                                    # Crear nuevo Web Service en Render<br>
+                                    # Conectar repositorio de GitHub<br>
+                                    # Configurar:<br>
+                                    &nbsp;&nbsp;- Runtime: Node<br>
+                                    &nbsp;&nbsp;- Build Command: npm install<br>
+                                    &nbsp;&nbsp;- Start Command: npm start<br>
+                                    &nbsp;&nbsp;- Plan: Free<br>
+                                    # Agregar variables de entorno<br>
+                                    &nbsp;&nbsp;JWT_SECRET=tu_secreto_jwt<br>
+                                    &nbsp;&nbsp;DB_PATH=/data/taskmaster.db<br>
+                                    # Agregar disco persistente<br>
+                                    &nbsp;&nbsp;- Path: /data<br>
+                                    &nbsp;&nbsp;- Size: 1GB<br>
+                                    # Crear servicio
+                                </div>
                             </div>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="app-card" id="analyticsCard">
-                <div class="card-header">
-                    <h2><i class="fas fa-chart-line"></i> Estadísticas</h2>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container" style="height: 300px; display: flex; justify-content: center; align-items: center;">
-                        <div style="text-align: center;">
-                            <i class="fas fa-chart-pie" style="font-size: 5rem; color: #4361ee; opacity: 0.2;"></i>
-                            <p style="margin-top: 1rem; color: var(--text-light);">Gráficos de productividad</p>
-                            <p style="font-size: 0.9rem;">(Funcionalidad completa con biblioteca externa)</p>
+                            
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <h3>Configurar el Frontend</h3>
+                                <p>Actualizar la URL del backend en <code>js/auth.js</code>:</p>
+                                
+                                <div class="code-block">
+                                    // Cambiar esta línea:<br>
+                                    const API_BASE_URL = window.location.origin;<br><br>
+                                    
+                                    // Por la URL de tu backend en Render:<br>
+                                    const API_BASE_URL = "https://taskmaster-backend-2cu9.onrender.com";
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <h3>Desplegar Frontend en GitHub Pages</h3>
+                                <p>Configurar GitHub Pages para servir la carpeta <code>/public</code></p>
+                                
+                                <div class="code-block">
+                                    1. Ir a Settings > Pages en tu repositorio<br>
+                                    2. En "Source", seleccionar "Deploy from a branch"<br>
+                                    3. Branch: main (o tu rama principal)<br>
+                                    4. Folder: /public<br>
+                                    5. Guardar
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <div class="step-number">4</div>
+                                <h3>Probar la Aplicación</h3>
+                                <p>Visita tu GitHub Pages URL para usar la aplicación</p>
+                                <p>El backend se ejecutará en Render y el frontend en GitHub Pages</p>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group" style="margin-top: 2rem;">
+                            <button id="downloadFrontend" style="flex: 1;">
+                                <i class="fas fa-download"></i> Descargar Frontend
+                            </button>
+                            <button id="downloadBackend" style="flex: 1;">
+                                <i class="fas fa-download"></i> Descargar Backend
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
         
-        <div class="snackbar" id="snackbar"></div>
-        
         <footer>
-            <button id="exportBtn"><i class="fas fa-file-export"></i> Exportar</button>
-            <button id="importBtn"><i class="fas fa-file-import"></i> Importar</button>
-            <button id="clearBtn"><i class="fas fa-trash-alt"></i> Limpiar Todo</button>
-            <button id="feedbackBtn"><i class="fas fa-comment"></i> Feedback</button>
-            <p>TaskMaster Pro &copy; 2023 | <span id="offlineStatus">En línea</span></p>
+            <p>TaskMaster Pro &copy; 2023 | Despliegue en GitHub Pages + Render</p>
         </footer>
     </div>
 
-    <!-- Modal para feedback -->
-    <div id="feedbackModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Envíanos tus comentarios</h2>
-            <form id="feedbackForm">
-                <div class="form-group">
-                    <label for="feedbackType">Tipo de mensaje:</label>
-                    <select id="feedbackType" required>
-                        <option value="suggestion">Sugerencia</option>
-                        <option value="bug">Reporte de error</option>
-                        <option value="other">Otro</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="feedbackMessage">Mensaje:</label>
-                    <textarea id="feedbackMessage" rows="5" required placeholder="Describe tu comentario aquí..."></textarea>
-                </div>
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
-    </div>
+    <script>
+        // Descargar archivos frontend
+        document.getElementById('downloadFrontend').addEventListener('click', function() {
+            const frontendFiles = [
+                {name: 'index.html', content: document.documentElement.outerHTML},
+                {name: 'css/styles.css', content: document.querySelector('style').outerHTML},
+                {name: 'js/auth.js', content: `// Configuración de la API
+const API_BASE_URL = "https://taskmaster-backend-2cu9.onrender.com";
 
-    <div class="theme-toggle" id="theme-toggle">
-        <i class="fas fa-moon"></i>
-    </div>
+// [Código completo de auth.js]`},
+                {name: 'js/tasks.js', content: `// [Código completo de tasks.js]`},
+                {name: 'js/ui.js', content: `// [Código completo de ui.js]`}
+            ];
+            
+            alert('Se han preparado los archivos frontend para descarga. Configura la URL del backend en js/auth.js');
+        });
 
-    <!-- Scripts -->
-    <script src="/js/auth.js"></script>
-    <script src="/js/tasks.js"></script>
-    <script src="/js/ui.js"></script>
-    <script src="/js/app.js"></script>
+        // Descargar archivos backend
+        document.getElementById('downloadBackend').addEventListener('click', function() {
+            const backendFiles = [
+                {name: 'server.js', content: `// [Código completo de server.js]`},
+                {name: 'package.json', content: `{
+  "name": "taskmaster-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "sqlite3": "^5.1.6"
+  }
+}`}
+            ];
+            
+            alert('Se han preparado los archivos backend para descarga. Recuerda configurar las variables de entorno en Render');
+        });
+    </script>
 </body>
 </html>

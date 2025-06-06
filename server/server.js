@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { authenticate } = require('./middleware/auth');
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth.routes');
@@ -15,8 +16,8 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/auth', authRoutes);
-app.use('/api/tasks', taskRoutes);
-app.use('/api/feedback', feedbackRoutes);
+app.use('/api/tasks', authenticate, taskRoutes);
+app.use('/api/feedback', authenticate, feedbackRoutes);
 
 // Ruta de salud
 app.get('/api/health', (req, res) => {

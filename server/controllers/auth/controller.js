@@ -191,22 +191,21 @@ exports.resetPassword = async (req, res) => {
 exports.getUserProfile = async (req, res) => {
     try {
         const userId = req.user.id;
-        
+
         db.get('SELECT id, name, email, created_at FROM users WHERE id = ?', [userId], (err, user) => {
+            if (err) {
+                console.error('DB error:', err);
+                return res.status(500).json({ error: 'Error interno del servidor' });
+            }
             if (!user) {
                 return res.status(404).json({ error: 'Usuario no encontrado' });
             }
-            
+            // userId puede ser string o number, aseguramos comparación correcta
+            if (String(user.id) !== String(userId)) {
+                return res.status(403).json({ error: 'No autorizado' });
+            }
             res.json(user);
         });
-        if (user.id !== userId) {
-                    return res.status(403).json({ error: 'No autorizado' });
-                }
-                
-                res.json(user);
-            }
-
-        );   
     } catch (error) {
         console.error('Error al obtener perfil:', error);
         res.status(500).json({ error: 'Error interno del servidor' });

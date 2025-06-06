@@ -47,7 +47,7 @@ exports.getTaskById = async (req, res) => {
             [taskId, userId],
             (err, task) => {
                 if (!task) {
-                    return res.status(404).json({ error: 'Tarea no encontrada' });
+                    return res.status(404).json({ error: 'Tarea no encontrada o no tienes permiso' });
                 }
                 
                 res.json(task);
